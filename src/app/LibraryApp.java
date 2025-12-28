@@ -1,54 +1,40 @@
 package app;
 
-import model.Book;
-import model.Member;
-import model.StudentMember;
-import service.LibraryManager;
-
-import java.time.LocalDate;
+import java.util.Scanner;
 
 public class LibraryApp {
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        LibraryManager manager = new LibraryManager();
+        System.out.println("Library Management System started.");
 
-       
-        Book b1 = new Book("B1", "Clean Code", "Robert C. Martin", "1111", 2);
-        Book b2 = new Book("B2", "Effective Java", "Joshua Bloch", "2222", 1);
+        while (true) {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1) Say hello");
+            System.out.println("2) Enter a number");
+            System.out.println("0) Exit");
+            System.out.print("Choice: ");
 
-        manager.addBook(b1);
-        manager.addBook(b2);
+            int choice = sc.nextInt();
+            sc.nextLine(); // buffer temizleme
 
-       
-        Member normalMember = new Member("M1", "Normal User", "normal@mail.com");
-        StudentMember student = new StudentMember("S1", "Student User", "student@mail.com", "Computer Engineering");
-
-        manager.addMember(normalMember);
-        manager.addMember(student);
-
-     
-        LocalDate today = LocalDate.now();
-        LocalDate dueNormal = today.plusDays(7);     
-        LocalDate dueStudent = today.minusDays(3);   
-
-       
-        System.out.println("=== BORROW BOOKS ===");
-        manager.borrowBook("L1", "B1", "M1", today, dueNormal);
-        manager.borrowBook("L2", "B2", "S1", today, dueStudent);
-
-    
-        System.out.println("\n=== RETURN BOOKS ===");
-        manager.returnBook("L1");   
-        manager.returnBook("L2");   
-
-       
-        System.out.println("\n=== BOOK STATES ===");
-        for (Book book : manager.getBooks()) {
-            System.out.println(book.getId() + " - " + book.getTitle()
-                    + " | available: " + book.getAvailableCopies()
-                    + "/" + book.getTotalCopies());
+            if (choice == 0) {
+                System.out.println("Bye.");
+                break;
+            } else if (choice == 1) {
+                System.out.print("Your name: ");
+                String name = sc.nextLine();
+                System.out.println("Hello " + name);
+            } else if (choice == 2) {
+                System.out.print("Enter number: ");
+                int x = sc.nextInt();
+                System.out.println("You entered: " + x);
+            } else {
+                System.out.println("Invalid choice.");
+            }
         }
+
+        sc.close();
     }
 }
-
